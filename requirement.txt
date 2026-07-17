@@ -1,6 +1,0 @@
-openai
-google-genai
-reportlab
-pillow
-jinja2
-python-dotenv
