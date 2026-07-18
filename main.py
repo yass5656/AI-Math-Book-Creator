@@ -1,15 +1,21 @@
-from core.engines.book_planner import BookPlanner
+from agents.knowledge_builder.knowledge_builder import KnowledgeBuilder
 
 
 def main():
 
-    planner = BookPlanner()
+    builder = KnowledgeBuilder()
 
-    lesson = planner.create_lesson_plan(
-        "Negative Numbers"
+    builder.run(
+
+        stage=4,
+
+        term=1,
+
+        unit="Numbers",
+
+        lesson="Negative Numbers"
+
     )
-
-    print(lesson)
 
 
 if __name__ == "__main__":
