@@ -1,21 +1,13 @@
-from agents.knowledge_builder.knowledge_builder import KnowledgeBuilder
+from config.settings import Settings
 
 
 def main():
 
-    builder = KnowledgeBuilder()
+    settings = Settings()
 
-    builder.run(
+    print(settings.project_name)
 
-        stage=4,
-
-        term=1,
-
-        unit="Numbers",
-
-        lesson="Negative Numbers"
-
-    )
+    print(settings.version)
 
 
 if __name__ == "__main__":
