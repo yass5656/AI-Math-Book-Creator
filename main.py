@@ -1,14 +1,17 @@
-from config.settings import Settings
+from core.models.book_request import BookRequest
+from core.engines.book_planner import BookPlanner
 
 
-def main():
+request = BookRequest(
+    curriculum="Cambridge",
+    stage=4,
+    term=1,
+    book_type="Practice",
+    theme="Modern Blue"
+)
 
-    settings = Settings()
+planner = BookPlanner()
 
-    print(settings.project_name)
+book = planner.build(request)
 
-    print(settings.version)
-
-
-if __name__ == "__main__":
-    main()
+print(book)
