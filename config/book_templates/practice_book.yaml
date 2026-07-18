@@ -1,0 +1,25 @@
+lesson:
+
+  - type: review
+    title: Quick Review
+    questions: 6
+
+  - type: worked_examples
+    title: Worked Examples
+    questions: 2
+
+  - type: practice_easy
+    title: Practice
+    questions: 10
+
+  - type: practice_medium
+    title: Practice
+    questions: 10
+
+  - type: progression
+    title: Progression Practice
+    questions: 6
+
+  - type: homework
+    title: Homework
+    questions: 8
