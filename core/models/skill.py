@@ -1,43 +1,31 @@
 from typing import List, Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class Skill(BaseModel):
-
     skill_id: str
-
     curriculum: str
-
     stage: str
-
     term: int
-
     unit: str
-
     learning_object: str
 
     name: str
-
     description: str
-
     learning_objective: str
-
-    prerequisite_skills: List[str] = []
-
-    related_skills: List[str] = []
-
-    misconceptions: List[str] = []
-
-    vocabulary: List[str] = []
 
     bloom_level: str
 
-    estimated_teaching_time: int
+    prerequisite_skills: List[str] = Field(default_factory=list)
+    related_skills: List[str] = Field(default_factory=list)
 
-    progression_weight: float
+    vocabulary: List[str] = Field(default_factory=list)
+    misconceptions: List[str] = Field(default_factory=list)
 
-    workbook_weight: float
+    estimated_teaching_time: int = 15
 
-    mastery_weight: float
+    progression_weight: float = 0.30
+    workbook_weight: float = 0.30
+    mastery_weight: float = 0.40
 
     teacher_notes: Optional[str] = None
