@@ -1,13 +1,15 @@
-from core.engines.question_engine import QuestionEngine
+from core.engines.book_planner import BookPlanner
 
 
 def main():
 
-    engine = QuestionEngine()
+    planner = BookPlanner()
 
-    question = engine.generate_compare_negative_numbers()
+    lesson = planner.create_lesson_plan(
+        "Negative Numbers"
+    )
 
-    print(question.model_dump())
+    print(lesson)
 
 
 if __name__ == "__main__":
