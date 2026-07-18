@@ -4,3 +4,4 @@ reportlab
 pillow
 jinja2
 python-dotenv
+pydantic>=2.11
