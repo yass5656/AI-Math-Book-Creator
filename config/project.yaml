@@ -1,0 +1,48 @@
+project:
+
+  name: Cambridge Math Studio
+
+  version: 1.0
+
+curriculum:
+
+  name: Cambridge Primary Mathematics
+
+  stages:
+
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+
+books:
+
+  practice:
+
+    enabled: true
+
+  revision:
+
+    enabled: true
+
+  teacher:
+
+    enabled: true
+
+output:
+
+  pdf: true
+
+  docx: true
+
+  json: true
+
+theme:
+
+  default: modern_blue
+
+language:
+
+  default: english
