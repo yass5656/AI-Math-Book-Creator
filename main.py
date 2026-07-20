@@ -1,17 +1,13 @@
-from core.models.book_request import BookRequest
-from core.engines.book_planner import BookPlanner
+from core.services.curriculum_loader import CurriculumLoader
 
+loader = CurriculumLoader()
 
-request = BookRequest(
-    curriculum="Cambridge",
-    stage=4,
-    term=1,
-    book_type="Practice",
-    theme="Modern Blue"
-)
+book = loader.load(4, 1)
 
-planner = BookPlanner()
+print(book["title"])
 
-book = planner.build(request)
+for unit in book["units"]:
+    print(unit["name"])
 
-print(book)
+    for lesson in unit["lessons"]:
+        print("   -", lesson["name"])
