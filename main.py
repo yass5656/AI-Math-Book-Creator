@@ -1,13 +1,9 @@
-from core.services.curriculum_loader import CurriculumLoader
+from core.engines.question_generator import QuestionGenerator
 
-loader = CurriculumLoader()
+generator = QuestionGenerator()
 
-book = loader.load(4, 1)
+for i in range(10):
 
-print(book["title"])
+    q = generator.generate()
 
-for unit in book["units"]:
-    print(unit["name"])
-
-    for lesson in unit["lessons"]:
-        print("   -", lesson["name"])
+    print(q["question"], " Answer:", q["answer"])
