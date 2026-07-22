@@ -1,0 +1,11 @@
+id: CMP003
+
+name: Compare Numbers True False
+
+generator: comparison_generator
+
+question_type: TrueFalse
+
+template: "{A} > {B}"
+
+answer: true
