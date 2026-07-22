@@ -1,0 +1,17 @@
+id: CMP002
+
+name: Compare Numbers MCQ
+
+generator: comparison_generator
+
+question_type: MultipleChoice
+
+template: "Choose the correct sign between {A} and {B}"
+
+choices:
+
+  - "<"
+
+  - ">"
+
+  - "="
