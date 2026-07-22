@@ -2,8 +2,20 @@ from core.engines.question_generator import QuestionGenerator
 
 generator = QuestionGenerator()
 
-for i in range(10):
+PATTERN = (
+    "knowledge_base/"
+    "Cambridge/Primary/"
+    "Stage4/Term1/"
+    "units/Unit1/"
+    "patterns/CMP001.yaml"
+)
 
-    q = generator.generate()
+for level in ["easy", "medium", "hard"]:
 
-    print(q["question"], " Answer:", q["answer"])
+    print(f"\n===== {level.upper()} =====")
+
+    for _ in range(5):
+
+        q = generator.generate(PATTERN, level)
+
+        print(q["question"], "Answer:", q["answer"])
