@@ -1,41 +1,35 @@
+from pathlib import Path
 import random
-
-from core.models.question import (
-    Question,
-    Difficulty,
-    QuestionType,
-)
+import yaml
 
 
-class QuestionEngine:
+class QuestionGenerator:
 
-    def generate_compare_negative_numbers(self):
+    def generate(self):
 
-        a = random.randint(-30, -1)
-        b = random.randint(-30, -1)
+        pattern_file = Path(
+            "knowledge_base/Cambridge/Primary/Stage4/Term1/units/Unit1/patterns/CMP001.yaml"
+        )
 
-        while a == b:
-            b = random.randint(-30, -1)
+        with open(pattern_file, encoding="utf-8") as f:
+            pattern = yaml.safe_load(f)
+
+        r = pattern["range"]["easy"]
+
+        a = random.randint(r["min"], r["max"])
+        b = random.randint(r["min"], r["max"])
 
         answer = "<" if a < b else ">"
 
-        question = Question(
-            question_id="AUTO-0001",
-            curriculum="Cambridge",
-            stage="Stage4",
-            term=1,
-            unit="Unit 1",
-            learning_object="Negative Numbers",
-            skill="Compare Negative Numbers",
-            pattern_id="CMP001",
-            difficulty=Difficulty.EASY,
-            question_type=QuestionType.FILL_IN_THE_BLANK,
-            question_text=f"{a} ____ {b}",
-            answer=answer,
-            workbook_style=True,
-            progression_style=False,
-            book_style=True
-        )
+        question = pattern["template"]["question"]
 
-        return question
+        question = question.replace("{A}", str(a))
+        question = question.replace("{B}", str(b))
 
+        return {
+
+            "question": question,
+
+            "answer": answer
+
+        }
