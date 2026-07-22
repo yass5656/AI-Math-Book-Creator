@@ -1,6 +1,5 @@
-import random
-
 from core.services.yaml_loader import YamlLoader
+from core.generators import GENERATORS
 
 
 class QuestionGenerator:
@@ -9,22 +8,6 @@ class QuestionGenerator:
 
         pattern = YamlLoader.load(pattern_path)
 
-        limits = pattern["range"][difficulty]
+        generator = GENERATORS[pattern["generator"]]
 
-        a = random.randint(limits["min"], limits["max"])
-        b = random.randint(limits["min"], limits["max"])
-
-        answer = "<" if a < b else ">"
-
-        question = (
-            pattern["template"]["question"]
-            .replace("{A}", str(a))
-            .replace("{B}", str(b))
-        )
-
-        return {
-            "question": question,
-            "answer": answer,
-            "pattern": pattern["id"],
-            "difficulty": difficulty,
-        }
+        return generator.generate(pattern, difficulty)
