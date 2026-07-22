@@ -1,0 +1,32 @@
+id: NEG001
+
+title: Compare Negative Numbers
+
+learning_objective: Compare and order negative integers.
+
+difficulty:
+  - Easy
+  - Medium
+  - Hard
+
+question_types:
+  - FillBlank
+  - MultipleChoice
+  - TrueFalse
+
+generator: comparison_generator
+
+patterns:
+  - CMP001
+  - CMP002
+
+cambridge_tags:
+  - Numbers
+  - Negative Numbers
+  - Place Value
+
+progression_test: true
+
+workbook: true
+
+practice_book: true
