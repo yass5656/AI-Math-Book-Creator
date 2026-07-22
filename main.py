@@ -1,11 +1,17 @@
-from core.engines.question_generator import QuestionGenerator
+from core.engines.book_builder import BookBuilder
 
-generator = QuestionGenerator()
+book = BookBuilder().build()
 
-question = generator.generate(
+print(book.title)
 
-    "knowledge_base/Cambridge/Primary/Stage4/Term1/units/Unit1/patterns/comparison/fill_blank.yaml"
+print()
 
-)
+for page in book.pages:
 
-print(question)
+    print(page.title)
+
+    print("-"*40)
+
+    for i, ex in enumerate(page.exercises,1):
+
+        print(i, ex.question)
