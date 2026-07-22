@@ -1,35 +1,30 @@
-from pathlib import Path
 import random
-import yaml
+
+from core.services.yaml_loader import YamlLoader
 
 
 class QuestionGenerator:
 
-    def generate(self):
+    def generate(self, pattern_path, difficulty="easy"):
 
-        pattern_file = Path(
-            "knowledge_base/Cambridge/Primary/Stage4/Term1/units/Unit1/patterns/CMP001.yaml"
-        )
+        pattern = YamlLoader.load(pattern_path)
 
-        with open(pattern_file, encoding="utf-8") as f:
-            pattern = yaml.safe_load(f)
+        limits = pattern["range"][difficulty]
 
-        r = pattern["range"]["easy"]
-
-        a = random.randint(r["min"], r["max"])
-        b = random.randint(r["min"], r["max"])
+        a = random.randint(limits["min"], limits["max"])
+        b = random.randint(limits["min"], limits["max"])
 
         answer = "<" if a < b else ">"
 
-        question = pattern["template"]["question"]
-
-        question = question.replace("{A}", str(a))
-        question = question.replace("{B}", str(b))
+        question = (
+            pattern["template"]["question"]
+            .replace("{A}", str(a))
+            .replace("{B}", str(b))
+        )
 
         return {
-
             "question": question,
-
-            "answer": answer
-
+            "answer": answer,
+            "pattern": pattern["id"],
+            "difficulty": difficulty,
         }
