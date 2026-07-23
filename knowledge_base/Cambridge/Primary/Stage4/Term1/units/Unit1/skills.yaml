@@ -1,0 +1,17 @@
+lesson: L1
+
+title: Negative Numbers
+
+skills:
+
+  - id: NEG001
+    name: Compare Negative Numbers
+
+  - id: NEG002
+    name: Order Negative Numbers
+
+  - id: NEG003
+    name: Complete Number Line
+
+  - id: NEG004
+    name: Word Problems
