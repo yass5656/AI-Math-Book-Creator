@@ -15,16 +15,17 @@ class BookBuilder:
         )
 
         pattern = (
-            "knowledge_base/"
-            "Cambridge/"
-            "Primary/"
-            "Stage4/"
-            "Term1/"
-            "Unit1/"
-            "patterns/"
-            "comparison/"
-            "fill_blank.yaml"
-        )
+    "knowledge_base/"
+    "Cambridge/"
+    "Primary/"
+    "Stage4/"
+    "Term1/"
+    "units/"
+    "Unit1/"
+    "patterns/"
+    "comparison/"
+    "fill_blank.yaml"
+)
 
         page = page_builder.build(
             title="Compare Negative Numbers",
