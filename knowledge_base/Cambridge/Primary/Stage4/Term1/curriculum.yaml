@@ -1,4 +1,32 @@
+title: Cambridge Primary Mathematics Stage 4 - Term 1
+
 curriculum: Cambridge
 stage: 4
 term: 1
-title: Cambridge Primary Mathematics Stage 4
+language: English
+
+units:
+
+  - id: U1
+    name: Unit 1
+    path: Unit1
+
+  - id: U2
+    name: Unit 2
+    path: Unit2
+
+  - id: U3
+    name: Unit 3
+    path: Unit3
+
+  - id: U4
+    name: Unit 4
+    path: Unit4
+
+  - id: U5
+    name: Unit 5
+    path: Unit5
+
+    id: U6
+    name: Unit 6
+    path: Unit6
