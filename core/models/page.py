@@ -1,9 +1,23 @@
-from dataclasses import dataclass, field
-from typing import List
-
-from .exercise import Exercise
-
-@dataclass
 class Page:
-    title: str
-    exercises: List[Exercise] = field(default_factory=list)
+
+    def __init__(
+        self,
+        number,
+        title,
+        content,
+        page_type
+    ):
+        self.number = number
+        self.title = title
+        self.content = content
+        self.page_type = page_type
+
+
+    def display(self):
+
+        return {
+            "page": self.number,
+            "title": self.title,
+            "type": self.page_type,
+            "content": self.content
+        }
