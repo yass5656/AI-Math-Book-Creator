@@ -1,17 +1,23 @@
 from core.engines.book_builder import BookBuilder
 
-book = BookBuilder().build()
 
-print(book.title)
+def main():
 
-print()
+    builder = BookBuilder()
 
-for page in book.pages:
+    book = builder.build()
 
-    print(page.title)
+    print(f"\n{book.title}")
+    print("=" * len(book.title))
 
-    print("-"*40)
+    for page in book.pages:
 
-    for i, ex in enumerate(page.exercises,1):
+        print(f"\n{page.title}")
+        print("-" * 40)
 
-        print(i, ex.question)
+        for i, exercise in enumerate(page.exercises, start=1):
+            print(f"{i}. {exercise.question}")
+
+
+if __name__ == "__main__":
+    main()
