@@ -5,25 +5,41 @@ from core.engines.question_generator import QuestionGenerator
 
 class PageBuilder:
 
-    def build(self, title, pattern, count):
+    def __init__(self):
+        self.generator = QuestionGenerator()
 
-        generator = QuestionGenerator()
+    def build(
+        self,
+        title,
+        pattern,
+        count,
+        difficulty="easy"
+    ):
 
         page = Page(title)
 
-        for _ in range(count):
+        for index in range(count):
 
-            q = generator.generate(pattern)
+            question = self.generator.generate(
+                pattern,
+                difficulty
+            )
 
             page.exercises.append(
 
                 Exercise(
 
-                    question=q["question"],
+                    id=f"Q{index+1}",
 
-                    answer=q["answer"],
+                    question=question["question"],
 
-                    difficulty="Easy"
+                    answer=question["answer"],
+
+                    marks=1,
+
+                    difficulty=difficulty,
+
+                    source=pattern
 
                 )
 
