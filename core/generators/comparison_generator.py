@@ -7,10 +7,21 @@ class ComparisonGenerator:
 
         limits = pattern["difficulty"][difficulty]
 
-        a = random.randint(limits["min"], limits["max"])
-        b = random.randint(limits["min"], limits["max"])
+        # منع توليد عددين متساويين
+        while True:
+            a = random.randint(limits["min"], limits["max"])
+            b = random.randint(limits["min"], limits["max"])
 
-        operator = "<" if a < b else ">"
+            if a != b:
+                break
+
+        if a < b:
+            operator = "<"
+        elif a > b:
+            operator = ">"
+        else:
+            operator = "="
+
         question_type = pattern["question_type"]
 
         if question_type == "FillBlank":
@@ -21,7 +32,10 @@ class ComparisonGenerator:
                 .replace("{B}", str(b))
             )
 
-            answer = operator
+            return {
+                "question": question,
+                "answer": operator
+            }
 
         elif question_type == "MultipleChoice":
 
@@ -31,15 +45,13 @@ class ComparisonGenerator:
                 .replace("{B}", str(b))
             )
 
-            answer = operator
-
             choices = ["<", ">", "="]
             random.shuffle(choices)
 
             return {
                 "question": question,
                 "choices": choices,
-                "answer": answer
+                "answer": operator
             }
 
         elif question_type == "TrueFalse":
@@ -53,13 +65,13 @@ class ComparisonGenerator:
                 .replace("{OP}", shown_operator)
             )
 
-            answer = (shown_operator == operator)
+            return {
+                "question": question,
+                "answer": (shown_operator == operator)
+            }
 
         else:
 
-            raise ValueError(f"Unsupported question type: {question_type}")
-
-        return {
-            "question": question,
-            "answer": answer
-        }
+            raise ValueError(
+                f"Unsupported question type: {question_type}"
+            )
