@@ -1,17 +1,21 @@
 id: CMP002
 
-name: Compare Numbers MCQ
-
 generator: comparison_generator
 
 question_type: MultipleChoice
 
 template: "Choose the correct sign between {A} and {B}"
 
-choices:
+difficulty:
 
-  - "<"
+  easy:
+    min: -10
+    max: -1
 
-  - ">"
+  medium:
+    min: -30
+    max: -1
 
-  - "="
+  hard:
+    min: -100
+    max: -1
