@@ -1,4 +1,5 @@
 from core.engines.book_builder import BookBuilder
+from core.services.book_exporter import BookExporter
 
 
 def main():
@@ -7,17 +8,19 @@ def main():
 
     book = builder.build()
 
-    print(f"\n{book.title}")
-    print("=" * len(book.title))
+    exporter = BookExporter()
 
-    for page in book.pages:
+    exporter.export_json(
 
-        print(f"\n{page.title}")
-        print("-" * 40)
+        book,
 
-        for i, exercise in enumerate(page.exercises, start=1):
-            print(f"{i}. {exercise.question}")
+        "output/Stage4_Practice_Book.json"
+
+    )
+
+    print("Book exported successfully.")
 
 
 if __name__ == "__main__":
+
     main()
