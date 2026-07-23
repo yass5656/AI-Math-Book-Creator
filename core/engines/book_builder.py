@@ -1,39 +1,38 @@
 from core.models.book import Book
 from core.engines.page_builder import PageBuilder
-from core.services.curriculum_loader import CurriculumLoader
 
 
 class BookBuilder:
 
-    def build(
-        self,
-        curriculum="Cambridge",
-        stage=4,
-        term=1,
-    ):
+    def build(self):
 
-        loader = CurriculumLoader()
-        curriculum_data = loader.load(curriculum, stage, term)
-
-        builder = PageBuilder()
+        page_builder = PageBuilder()
 
         book = Book(
-    title=curriculum_data["title"],
-    stage=stage,
-    term=term
-)
+            title="Cambridge Stage 4 Practice Book",
+            stage=4,
+            term=1
+        )
 
-        for unit in curriculum_data["units"]:
+        pattern = (
+            "knowledge_base/"
+            "Cambridge/"
+            "Primary/"
+            "Stage4/"
+            "Term1/"
+            "Unit1/"
+            "patterns/"
+            "comparison/"
+            "fill_blank.yaml"
+        )
 
-            for page in unit["pages"]:
+        page = page_builder.build(
+            title="Compare Negative Numbers",
+            pattern=pattern,
+            count=20,
+            difficulty="easy"
+        )
 
-                book.pages.append(
-                    builder.build(
-                        title=page["title"],
-                        pattern=page["pattern"],
-                        count=page["count"],
-                        difficulty=page.get("difficulty", "easy"),
-                    )
-                )
+        book.pages.append(page)
 
         return book
