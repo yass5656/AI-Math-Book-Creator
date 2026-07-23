@@ -17,7 +17,11 @@ class BookBuilder:
 
         builder = PageBuilder()
 
-        book = Book(curriculum_data["title"])
+        book = Book(
+    title=curriculum_data["title"],
+    stage=stage,
+    term=term
+)
 
         for unit in curriculum_data["units"]:
 
