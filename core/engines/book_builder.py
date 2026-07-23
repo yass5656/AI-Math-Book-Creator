@@ -1,35 +1,35 @@
 from core.models.book import Book
 from core.engines.page_builder import PageBuilder
+from core.services.curriculum_loader import CurriculumLoader
 
 
 class BookBuilder:
 
-    def build(self):
+    def build(
+        self,
+        curriculum="Cambridge",
+        stage=4,
+        term=1,
+    ):
 
-        pattern = (
-            "knowledge_base/"
-            "Cambridge/Primary/"
-            "Stage4/Term1/"
-            "units/Unit1/"
-            "patterns/comparison/fill_blank.yaml"
-        )
+        loader = CurriculumLoader()
+        curriculum_data = loader.load(curriculum, stage, term)
 
         builder = PageBuilder()
 
-        book = Book("Stage 4 Practice Book")
+        book = Book(curriculum_data["title"])
 
-        book.pages.append(
+        for unit in curriculum_data["units"]:
 
-            builder.build(
+            for page in unit["pages"]:
 
-                "Practice Page",
-
-                pattern,
-
-                20
-
-            )
-
-        )
+                book.pages.append(
+                    builder.build(
+                        title=page["title"],
+                        pattern=page["pattern"],
+                        count=page["count"],
+                        difficulty=page.get("difficulty", "easy"),
+                    )
+                )
 
         return book
