@@ -4,6 +4,7 @@ from core.engines.lesson_builder import LessonBuilder
 from core.engines.test_builder import TestBuilder
 from core.services.unit_loader import UnitLoader
 from core.services.lesson_loader import LessonLoader
+from core.services.skill_loader import SkillLoader
 
 
 class BookBuilder:
