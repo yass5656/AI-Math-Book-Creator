@@ -1,16 +1,7 @@
 {
-    "title": "Smart Start Cambridge Mathematics Stage 4 Term 1",
+    "title": "Smart Start Cambridge Stage 4 Term 1",
     "stage": 4,
     "term": 1,
     "series": "Smart Start",
-    "pages": [
-        {
-            "title": "Place Value",
-            "questions": []
-        },
-        {
-            "title": "Progression Test 1",
-            "questions": []
-        }
-    ]
+    "pages": []
 }

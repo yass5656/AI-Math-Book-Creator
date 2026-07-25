@@ -1,56 +1,88 @@
+import os
+
 from core.models.book import Book
 from core.models.page import Page
-from core.engines.lesson_builder import LessonBuilder
-from core.engines.test_builder import TestBuilder
+
 from core.services.unit_loader import UnitLoader
-from core.services.lesson_loader import LessonLoader
 from core.services.skill_loader import SkillLoader
+from core.services.lesson_loader import LessonLoader
+from core.services.pattern_loader import PatternLoader
+
+from core.engines.lesson_builder import LessonBuilder
+from core.engines.question_generator import QuestionGenerator
 
 
 class BookBuilder:
 
-    def build(self, curriculum="Cambridge", stage=4, term=1):
+    def __init__(self):
 
-        unit_loader = UnitLoader()
-        lesson_loader = LessonLoader()
-        skill_loader = SkillLoader()
-        lesson_builder = LessonBuilder()
-        test_builder = TestBuilder()
+        self.unit_loader = UnitLoader()
+        self.skill_loader = SkillLoader()
+        self.lesson_loader = LessonLoader()
+        self.pattern_loader = PatternLoader()
+
+        self.lesson_builder = LessonBuilder()
+        self.question_generator = QuestionGenerator()
+
+
+    def build(
+        self,
+        curriculum,
+        stage,
+        term
+    ):
 
         book = Book(
-            title=f"Smart Start {curriculum} Mathematics Stage {stage} Term {term}",
+            title=f"Smart Start Cambridge Stage {stage} Term {term}",
             stage=stage,
             term=term
         )
 
-        units = unit_loader.load_units(
+
+        units = self.unit_loader.load_units(
             curriculum,
             stage,
             term
         )
 
+
         completed_units = []
+
 
         for index, unit in enumerate(units[:6], start=1):
 
-            lessons = lesson_loader.load_lessons(
+            print(
+                "Processing unit:",
+                unit.get("title")
+            )
+
+
+            # Build correct knowledge path
+            unit_path = os.path.join(
+                "knowledge_base",
+                "Cambridge",
+                "Primary",
+                f"Stage{stage}",
+                f"Term{term}",
+                "units",
                 unit["path"]
             )
-            skills = skill_loader.load(
-                unit["path"]
+
+
+            skills = self.skill_loader.load(
+                unit_path
             )
-            
+
+
+            lessons = self.lesson_loader.load_lessons(
+                unit_path
+            )
+
+
             for lesson in lessons:
 
-                lesson_skills = []
 
-                for skill in skills:
-
-                    if skill.learning_object == lesson.get("id"):
-
-                       lesson_skills.append(skill)
-
-                lesson_data = lesson_builder.build(
+                lesson_data = self.lesson_builder.build(
                     lesson_title=lesson["title"],
                     objectives=lesson.get(
                         "objectives",
@@ -58,44 +90,79 @@ class BookBuilder:
                     )
                 )
 
-                lesson_data["warm_up"] = lesson.get(
-                    "warm_up",
-                    []
+
+                generated_questions = []
+
+
+                for skill in skills:
+
+
+                    for pattern_id in skill.patterns:
+
+
+                        try:
+
+                            patterns = self.pattern_loader.load(
+                                unit_path,
+                                [str(pattern_id)]
+                            )
+
+
+                            for pattern in patterns:
+
+                                question = (
+                                    self.question_generator.generate(
+                                        pattern,
+                                        "easy"
+                                    )
+                                )
+
+                                generated_questions.append(
+                                    question
+                                )
+
+
+                        except Exception as e:
+
+                            print(
+                                "Question generation error:",
+                                e
+                            )
+
+
+
+                lesson_data["generated_questions"] = (
+                    generated_questions
                 )
 
-                lesson_data["concept_explanation"] = lesson.get(
-                    "concept_explanation",
-                    []
-                )
 
-                lesson_data["worked_examples"] = lesson.get(
-                    "worked_examples",
-                    []
-                )
-
-                lesson_data["skills"] = [
-                    skill.name
-                    for skill in lesson_skills
-                ]
-                
                 page = Page(
                     title=lesson["title"],
                     content=lesson_data,
                     page_type="lesson"
                 )
 
-                book.pages.append(page)
 
-            completed_units.append(index)
+                page.exercises = (
+                    generated_questions
+                )
 
-            test_page = Page(
-                title=f"Progression Test {index}",
-                content=test_builder.build_progression_test(
-                    completed_units.copy()
-                ),
-                page_type="test"
+
+                book.pages.append(
+                    page
+                )
+
+
+            completed_units.append(
+                index
             )
 
-            book.pages.append(test_page)
+
+        print(
+            "Completed units:",
+            completed_units
+        )
+
 
         return book
+        
