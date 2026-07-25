@@ -20,7 +20,6 @@ class BookBuilder:
         )
 
         units = unit_loader.load_units(curriculum, stage, term)
-
         completed_units = []
 
         for index, unit in enumerate(units[:6], start=1):
@@ -33,13 +32,25 @@ class BookBuilder:
                 title=f"Unit {index}",
                 pattern=unit.get("pattern", ""),
                 count=20,
-                difficulty="easy"
+                difficulty="easy",
+                page_type="practice"
             )
 
             page.lesson_structure = lesson
             completed_units.append(index)
-            page.progression_test = test_builder.build_progression_test(completed_units.copy())
+            page.progression_test = test_builder.build_progression_test(
+                completed_units.copy()
+            )
 
             book.pages.append(page)
+
+        final_test = page_builder.build(
+            title="Final Term Assessment",
+            count=0,
+            page_type="test",
+            content=test_builder.build_final_term_test(6)
+        )
+
+        book.pages.append(final_test)
 
         return book
