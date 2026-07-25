@@ -1,32 +1,33 @@
-title: Cambridge Primary Mathematics Stage 4 - Term 1
+title: Smart Start Cambridge Primary Mathematics Stage 4 - Term 1
 
 curriculum: Cambridge
 stage: 4
 term: 1
 language: English
+series: Smart Start
 
 units:
 
   - id: U1
-    name: Unit 1
+    name: Numbers
     path: Unit1
 
   - id: U2
-    name: Unit 2
+    name: 2D Shapes
     path: Unit2
 
   - id: U3
-    name: Unit 3
+    name: calculation
     path: Unit3
 
   - id: U4
-    name: Unit 4
+    name: Time
     path: Unit4
 
   - id: U5
-    name: Unit 5
+    name: Statistical Methods
     path: Unit5
 
-    id: U6
-    name: Unit 6
+  - id: U6
+    name: Fractions
     path: Unit6
