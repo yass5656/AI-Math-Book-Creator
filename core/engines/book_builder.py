@@ -13,6 +13,7 @@ class BookBuilder:
 
         unit_loader = UnitLoader()
         lesson_loader = LessonLoader()
+        skill_loader = SkillLoader()
         lesson_builder = LessonBuilder()
         test_builder = TestBuilder()
 
@@ -35,8 +36,19 @@ class BookBuilder:
             lessons = lesson_loader.load_lessons(
                 unit["path"]
             )
-
+            skills = skill_loader.load(
+                unit["path"]
+            )
+            
             for lesson in lessons:
+
+                lesson_skills = []
+
+                for skill in skills:
+
+                    if skill.learning_object == lesson.get("id"):
+
+                       lesson_skills.append(skill)
 
                 lesson_data = lesson_builder.build(
                     lesson_title=lesson["title"],
@@ -61,6 +73,11 @@ class BookBuilder:
                     []
                 )
 
+                lesson_data["skills"] = [
+                    skill.name
+                    for skill in lesson_skills
+                ]
+                
                 page = Page(
                     title=lesson["title"],
                     content=lesson_data,
