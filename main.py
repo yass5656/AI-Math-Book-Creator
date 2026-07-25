@@ -23,9 +23,8 @@ def main():
 
     exporter.export_json(
         book,
-        f"output/{CONFIG['curriculum']}_Stage{CONFIG['stage']}_Term{CONFIG['term']}.json"
+     f"output/Smart_Start_{CONFIG['curriculum']}_Stage{CONFIG['stage']}_Term{CONFIG['term']}.json"
     )
-
     print("Book exported successfully.")
 
 

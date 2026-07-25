@@ -1,0 +1,32 @@
+title: "Place Value"
+
+objectives:
+  - "Read and write numbers up to 100000"
+  - "Understand the value of digits"
+
+warm_up:
+  - "What is the value of digit 5 in 54,321?"
+
+concept_explanation:
+  - "Each digit has a value depending on its position."
+
+worked_examples:
+  - question: "What is the value of 7 in 72,456?"
+    answer: "70000"
+
+practice:
+  level_1:
+    - "Find the value of digit 3 in 34,567"
+    - "Write 45,000 in words"
+
+  level_2:
+    - "Compare 45,678 and 45,876"
+
+  level_3:
+    - "Create the largest number using given digits"
+
+challenge:
+  - "Explain why changing digit position changes number value"
+
+review:
+  - "Summarise place value rules"
