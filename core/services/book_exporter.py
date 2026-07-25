@@ -12,41 +12,32 @@ class BookExporter:
         )
 
         data = {
-
             "title": book.title,
-
             "stage": book.stage,
-
             "term": book.term,
-
+            "series": "Smart Start",
             "pages": []
-
         }
 
         for page in book.pages:
-
             page_data = {
-
                 "title": page.title,
-
                 "questions": []
-
             }
 
+            if hasattr(page, "lesson_structure"):
+                page_data["lesson_structure"] = page.lesson_structure
+
+            if hasattr(page, "progression_test"):
+                page_data["progression_test"] = page.progression_test
+
             for ex in page.exercises:
-
                 page_data["questions"].append({
-
                     "id": ex.id,
-
                     "question": ex.question,
-
                     "answer": ex.answer,
-
                     "difficulty": ex.difficulty,
-
                     "marks": ex.marks
-
                 })
 
             data["pages"].append(page_data)
@@ -56,7 +47,6 @@ class BookExporter:
             "w",
             encoding="utf-8"
         ) as f:
-
             json.dump(
                 data,
                 f,
