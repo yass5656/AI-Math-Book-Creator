@@ -10,30 +10,42 @@ class SkillLoader:
 
         unit_path = Path(unit_path)
 
-        skills_index = unit_path / "skills.yaml"
+        skills_file = unit_path / "skills.yaml"
 
-        if not skills_index.exists():
+        if not skills_file.exists():
             return []
 
-        index = YamlLoader.load(skills_index)
+        data = YamlLoader.load(skills_file)
 
         loaded_skills = []
 
-        for item in index.get("skills", []):
-
-            skill_file = (
-                unit_path
-                / "skills"
-                / f"{item['id']}.yaml"
-            )
-
-            if not skill_file.exists():
-                continue
-
-            data = YamlLoader.load(skill_file)
+        for item in data.get("skills", []):
 
             loaded_skills.append(
-                Skill(**data)
+                Skill(
+                    id=item["id"],
+
+                    title=item.get(
+                        "name",
+                        item["id"]
+                    ),
+
+                    learning_objective=item.get(
+                        "name",
+                        ""
+                    ),
+
+                    generator=item.get(
+                        "generator",
+                        "comparison_generator"
+                    ),
+
+                    patterns=item.get(
+                        "patterns",
+                        []
+                    )
+                )
             )
 
         return loaded_skills
+        

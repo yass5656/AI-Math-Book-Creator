@@ -5,24 +5,36 @@ class ComparisonGenerator:
 
     def generate(self, pattern, difficulty):
 
-        limits = pattern["difficulty"][difficulty]
+        limits = pattern["range"][difficulty]
 
         # منع توليد عددين متساويين
         while True:
-            a = random.randint(limits["min"], limits["max"])
-            b = random.randint(limits["min"], limits["max"])
+            a = random.randint(
+                limits["min"],
+                limits["max"]
+            )
+
+            b = random.randint(
+                limits["min"],
+                limits["max"]
+            )
 
             if a != b:
                 break
 
+
         if a < b:
             operator = "<"
+
         elif a > b:
             operator = ">"
+
         else:
             operator = "="
 
+
         question_type = pattern["question_type"]
+
 
         if question_type == "FillBlank":
 
@@ -36,6 +48,7 @@ class ComparisonGenerator:
                 "question": question,
                 "answer": operator
             }
+
 
         elif question_type == "MultipleChoice":
 
@@ -54,9 +67,12 @@ class ComparisonGenerator:
                 "answer": operator
             }
 
+
         elif question_type == "TrueFalse":
 
-            shown_operator = random.choice(["<", ">"])
+            shown_operator = random.choice(
+                ["<", ">"]
+            )
 
             question = (
                 pattern["template"]
@@ -67,11 +83,13 @@ class ComparisonGenerator:
 
             return {
                 "question": question,
-                "answer": (shown_operator == operator)
+                "answer": shown_operator == operator
             }
+
 
         else:
 
             raise ValueError(
                 f"Unsupported question type: {question_type}"
             )
+            
